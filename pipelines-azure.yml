@@ -31,7 +31,7 @@ steps:
     displayName: 'Build and make screenshots'
     inputs:
       targetType: 'inline'
-      script: fastlane build && fastlane test && fastlane screenshots
+      script: bundle exec fastlane build && bundle exec fastlane test && bundle exec fastlane screenshots
   
   - task: Bash@3
     displayName: 'Publish'
