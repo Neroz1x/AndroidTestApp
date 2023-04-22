@@ -22,14 +22,11 @@ steps:
       script: sed -i "s/versionName "1.0"/versionName $GITVERSIONNUMBER/g" app/build.gradle
     env:
       GITVERSIONNUMBER: $(GitVersion.SemVer)
-  - task: UseRubyVersion@0
-    inputs:
-      versionSpec: '>= 2.4'
   - task: Bash@3
     displayName: 'Install fastlane'
     inputs:
       targetType: 'inline'
-      script: gem install bundler && gem install fastlane
+      script: bundle install && gem install bundler && gem install fastlane
   - task: Bash@3
     displayName: 'Build and make screenshots'
     inputs:
