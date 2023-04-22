@@ -47,5 +47,6 @@ class ExampleInstrumentedTest {
         )*/
 
         Screengrab.screenshot("main_page")
+        Screengrab.screenshot("main_page_2")
     }
 }
