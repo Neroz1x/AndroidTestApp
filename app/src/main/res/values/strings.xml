@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Neroz1xTestApp</string>
+    <string name="welcome_string">Welcome to my awesome app</string>
 </resources>
