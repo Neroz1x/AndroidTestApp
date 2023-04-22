@@ -1,9 +1,8 @@
 trigger:
   - main
 
-pool:
-  vmImage: 'ubuntu-latest'
-  
+pool: selfhosted
+
 steps:  
   - task: gitversion/execute@0
     inputs:
