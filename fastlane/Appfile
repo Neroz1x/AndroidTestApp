@@ -1,0 +1,2 @@
+package_name("com.neroz1x.testApplication")
+json_key_file("fastlane/key-google-play.json")
