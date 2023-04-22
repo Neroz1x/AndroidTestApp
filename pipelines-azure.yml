@@ -26,7 +26,7 @@ steps:
     displayName: 'Install fastlane'
     inputs:
       targetType: 'inline'
-      script: sudo gem install fastlane
+      script: gem install fastlane
   - task: Bash@3
     displayName: 'Build and make screenshots'
     inputs:
