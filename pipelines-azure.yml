@@ -28,12 +28,16 @@ steps:
     inputs:
       targetType: 'inline'
       script: gem install rails && rails -v 
+  - task: CmdLine@2
+    inputs:
+      script: |
+        bundle install
 
   - task: Bash@3
     displayName: 'Install fastlane'
     inputs:
       targetType: 'inline'
-      script: gem install bundler && gem install fastlane && bundle install
+      script: gem install bundler && gem install fastlane
   - task: Bash@3
     displayName: 'Build and make screenshots'
     inputs:
