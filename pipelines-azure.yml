@@ -19,7 +19,7 @@ steps:
     displayName: 'Set version number in gradle'
     inputs:
       targetType: 'inline'
-      script: sed -i "s/versionName "1.0"/versionName $GITVERSIONNUMBER/g" app/build.gradle
+      script: echo GitVersion.SemVer && sed -i "s/versionName "1.0"/versionName $GITVERSIONNUMBER/g" app/build.gradle
     env:
       GITVERSIONNUMBER: $(GitVersion.SemVer)
 
