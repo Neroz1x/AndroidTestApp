@@ -1,6 +1,6 @@
 resources:
   repositories:
-    - repository: SolutionServices
+    - repository: AsyncExamples #SolutionServices
       type: github
       endpoint: GitHub Connection
       name: Neroz1x/AsyncExamples #goodyear/Solution_Services
@@ -20,7 +20,7 @@ pool:
 #$branchSourcePath = $branchSource -replace "refs/heads/", ""
 steps:
 - checkout: self
-- checkout: SolutionServices
+- checkout: AsyncExamples #SolutionServices
 
 - task: Bash@3
   inputs:
