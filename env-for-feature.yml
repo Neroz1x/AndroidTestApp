@@ -4,7 +4,7 @@ resources:
       type: github
       endpoint: GitHub Connection
       name: Neroz1x/AsyncExamples #goodyear/Solution_Services
-      ref: refs/heads/feature-*
+      #ref: refs/heads/feature-*
       #trigger:
       #- test
 
