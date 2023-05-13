@@ -3,7 +3,7 @@ resources:
     - repository: SolutionServices
       type: github
       endpoint: GitHub Connection
-      name: goodyear/Solution_Services
+      name: Neroz1x/AsyncExamples #goodyear/Solution_Services
       ref: refs/heads/feature-*
       #trigger:
       #- test
@@ -19,35 +19,40 @@ pool:
 #$branchSource = "$(System.PullRequest.SourceBranch)"
 #$branchSourcePath = $branchSource -replace "refs/heads/", ""
 steps:
-#- checkout: self
+- checkout: self
 - checkout: SolutionServices
-#if git show-ref --quiet refs/heads/develop; then
-#    echo develop branch exists
-#fi
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
-  inputs:
-    vstsFeed: 'c673934b-06e3-49af-91f7-ea12bf4a126c'
 
-- task: JoeJulik.install-node-and-npm-task.custom-build-release-task.NodeAndNpmTool@1
-  displayName: 'Use Node 16.13.2'
+- task: Bash@3
   inputs:
-    versionSpec: 16.13.2
+    targetType: 'inline'
+    script: |
+      if git show-ref --quiet refs/heads/develop; then
+          echo develop branch exists
+      fi
+# - task: NuGetCommand@2
+#   displayName: 'NuGet restore'
+#   inputs:
+#     vstsFeed: 'c673934b-06e3-49af-91f7-ea12bf4a126c'
 
-- task: VSBuild@1
-  displayName: 'Build Solution Services (release)'
-  inputs:
-    solution: '$(build.sourcesDirectory)\Solution_Services\**\*.sln'
-    platform: 'any cpu'
-    configuration: release
+# - task: JoeJulik.install-node-and-npm-task.custom-build-release-task.NodeAndNpmTool@1
+#   displayName: 'Use Node 16.13.2'
+#   inputs:
+#     versionSpec: 16.13.2
 
-- task: VSBuild@1
-  displayName: 'Build Solutions Center (debug.publish)'
-  inputs:
-    solution: '$(build.sourcesDirectory)\Portal_SolutionsCenter\**\*.sln'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\Debug\\"'
-    platform: 'any cpu'
-    configuration: debug.publish
+# - task: VSBuild@1
+#   displayName: 'Build Solution Services (release)'
+#   inputs:
+#     solution: '$(build.sourcesDirectory)\Solution_Services\**\*.sln'
+#     platform: 'any cpu'
+#     configuration: release
+
+# - task: VSBuild@1
+#   displayName: 'Build Solutions Center (debug.publish)'
+#   inputs:
+#     solution: '$(build.sourcesDirectory)\Portal_SolutionsCenter\**\*.sln'
+#     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\Debug\\"'
+#     platform: 'any cpu'
+#     configuration: debug.publish
 
 # - task: VSBuild@1
 #   displayName: 'Package Solutions Center (release)'
