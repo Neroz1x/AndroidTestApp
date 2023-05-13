@@ -26,7 +26,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      if git show-ref --quiet refs/heads/develop; then
+      $branchSource = "$(System.PullRequest.SourceBranch)"
+      $branchSourcePath = $branchSource -replace "refs/heads/", ""
+      echo $branchSource
+      echo $branchSourcePath
+      if git show-ref --quiet refs/heads/branchSourcePath; then
           echo develop branch exists
       fi
 # - task: NuGetCommand@2
