@@ -15,28 +15,9 @@ steps:
   #   displayName: Determine Version Number
   #   inputs:
   #     versionSpec: '5.x'
-  - task: Bash@3
-    displayName: 'Set version number in gradle'
+  - task: CmdLine@2
+    displayName: 'Publish'
     inputs:
-      targetType: 'inline'
-      script: echo "$GITVERSIONNUMBER"
-    env:
-      GITVERSIONNUMBER: $(GitVersion.SemVer)
-  
-  - task: Bash@3
-    displayName: 'Set version number in gradle'
-    inputs:
-      targetType: 'inline'
-      script: echo "$ENV['GITVERSION_MAJORMINORPATCH']"
-    env:
-      GITVERSIONNUMBER: $(GitVersion.SemVer)
-  
-  - task: Bash@3
-    displayName: 'Set version number in gradle'
-    inputs:
-      targetType: 'inline'
-      script: echo $(ENV["GITVERSION_MAJORMINORPATCH"])
-    env:
-      GITVERSIONNUMBER: $(GitVersion.SemVer)
-
+      script: |
+        bundle exec fastlane test_gitversion
 
