@@ -15,7 +15,7 @@ steps:
   #   displayName: Determine Version Number
   #   inputs:
   #     versionSpec: '5.x'
-  - task: Bash@3
+  - task: PowerShell@2
     displayName: 'Set version number in gradle'
     inputs:
       targetType: 'inline'
