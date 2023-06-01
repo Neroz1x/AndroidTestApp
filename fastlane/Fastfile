@@ -69,5 +69,8 @@ desc "Build debug and test APK for screenshots"
   desc "Deploy a new version to the Google Play"
     lane :test_gitversion do
       puts ENV["GITVERSION_MAJORMINORPATCH"]
+      ENV["GITVERSION_MAJOR"] = Date.current.year
+      puts ENV["GITVERSION_MAJOR"]
+      puts ENV["GITVERSION_MAJORMINORPATCH"] 
   end
 end
