@@ -74,5 +74,6 @@ desc "Build debug and test APK for screenshots"
       ENV["GITVERSION_MAJORMINORPATCH"]  = "#{ENV["GITVERSION_MAJOR"]}.#{ENV["GITVERSION_MINOR"]}.#{ENV["GITVERSION_PATCH"]}#{PreReleaseLabelWithDash}#{PreReleaseNumber}"
       puts ENV["GITVERSION_MAJOR"]
       puts ENV["GITVERSION_MAJORMINORPATCH"] 
+	    
   end
 end
