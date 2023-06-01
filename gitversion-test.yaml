@@ -19,7 +19,7 @@ steps:
     displayName: 'Set version number in gradle'
     inputs:
       targetType: 'inline'
-      script: echo "$GITVERSIONNUMBER" && ENV["GITVERSION_MAJORMINORPATCH]
+      script: echo "$GITVERSIONNUMBER"
     env:
       GITVERSIONNUMBER: $(GitVersion.SemVer)
 
