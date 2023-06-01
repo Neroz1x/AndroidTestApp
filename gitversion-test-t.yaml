@@ -1,0 +1,22 @@
+trigger:
+  - test/*
+
+pool: selfhosted
+
+steps:  
+  - task: gitversion/setup@0
+    inputs:
+      versionSpec: '5.x'
+  
+  - task: gitversion/execute@0
+  #  inputs:
+  #    versionSpec: '5.x'
+  # - task: UseGitVersion@5
+  #   displayName: Determine Version Number
+  #   inputs:
+  #     versionSpec: '5.x'
+  - task: CmdLine@2
+    displayName: 'Publish'
+    inputs:
+      script: |
+        bundle exec fastlane test_gitversion
