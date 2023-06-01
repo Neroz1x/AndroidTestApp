@@ -15,25 +15,20 @@ steps:
   #   displayName: Determine Version Number
   #   inputs:
   #     versionSpec: '5.x'
-  - task: PowerShell@2
+  - task: Bash@3
     displayName: 'Set version number in gradle'
     inputs:
       targetType: 'inline'
-      script: Write-Output "$GITVERSIONNUMBER"
+      script: echo "$GITVERSIONNUMBER"
     env:
       GITVERSIONNUMBER: $(GitVersion.SemVer)
-  - task: PowerShell@2
+
+  - task: Bash@3
     displayName: 'Set version number in gradle'
     inputs:
       targetType: 'inline'
-      script: Write-Output $GITVERSIONNUMBER
+      script: echo $ENV["GITVERSION_MAJORMINORPATCH"]
     env:
       GITVERSIONNUMBER: $(GitVersion.SemVer)
-  - task: PowerShell@2
-    displayName: 'Set version number in gradle'
-    inputs:
-      targetType: 'inline'
-      script: Write-Output ENV["GITVERSION_MAJORMINORPATCH"]
-    env:
-      GITVERSIONNUMBER: $(GitVersion.SemVer)
+
 
