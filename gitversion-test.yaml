@@ -19,7 +19,21 @@ steps:
     displayName: 'Set version number in gradle'
     inputs:
       targetType: 'inline'
-      script: Write-Output "$GITVERSIONNUMBER" &  Write-Output $GITVERSIONNUMBER &  Write-Output ENV["GITVERSION_MAJORMINORPATCH"]
+      script: Write-Output "$GITVERSIONNUMBER"
+    env:
+      GITVERSIONNUMBER: $(GitVersion.SemVer)
+  - task: PowerShell@2
+    displayName: 'Set version number in gradle'
+    inputs:
+      targetType: 'inline'
+      script: Write-Output $GITVERSIONNUMBER &  Write-Output ENV["GITVERSION_MAJORMINORPATCH"]
+    env:
+      GITVERSIONNUMBER: $(GitVersion.SemVer)
+  - task: PowerShell@2
+    displayName: 'Set version number in gradle'
+    inputs:
+      targetType: 'inline'
+      script: Write-Output ENV["GITVERSION_MAJORMINORPATCH"]
     env:
       GITVERSIONNUMBER: $(GitVersion.SemVer)
 
