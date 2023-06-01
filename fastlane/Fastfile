@@ -65,4 +65,9 @@ desc "Build debug and test APK for screenshots"
 		skip_upload_changelogs: true,
 	)
   end
+	
+  desc "Deploy a new version to the Google Play"
+    lane :test_gitvesion do
+      puts ENV["GITVERSION_MAJORMINORPATCH"]
+  end
 end
