@@ -49,5 +49,6 @@ steps:
     inputs:
       script: |
         bundle exec fastlane deploy_beta
+        
 
 
