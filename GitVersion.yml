@@ -5,6 +5,7 @@ ignore:
   sha: []
 merge-message-formats: {}
 
+
 branches:
   main:
     regex: ^master$|^main$
@@ -41,4 +42,5 @@ branches:
     tracks-release-branches: false
     is-release-branch: false
     is-mainline: false
-    pre-release-weight: 55000
+    pre-release-weight: 55000 
+    
