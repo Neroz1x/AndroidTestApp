@@ -1,4 +1,4 @@
-next-version: 2023.4.3
+next-version: 2023.5.2
 mode: ContinuousDeployment
 branches: {}
 ignore:
