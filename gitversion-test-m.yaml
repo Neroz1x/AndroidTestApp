@@ -33,6 +33,6 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        echo "diff (git diff HEAD HEAD~ --name-only)"
+        echo "diff $(git diff HEAD HEAD~ --name-only)"
         files=$(git diff HEAD HEAD~ --name-only)
         echo "files $(files)"
