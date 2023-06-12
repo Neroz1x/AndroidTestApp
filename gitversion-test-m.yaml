@@ -12,7 +12,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        echo "##vso[task.setvariable variable=Build.SourcesDirectory;]$(Build.SourcesDirectory)/app2"
+        echo "##vso[task.setvariable variable=Build.SourcesDirectory;]$(Build.SourcesDirectory)\app2"
         echo "test - $(Build.SourcesDirectory)"
         
   - task: gitversion/execute@0
