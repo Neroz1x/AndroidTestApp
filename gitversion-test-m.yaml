@@ -13,7 +13,7 @@ steps:
       targetType: 'inline'
       script: |
         echo $(Build.SourcesDirectory)
-        echo "$(Build.SourcesDirectory)"
+        echo "test - $(Build.SourcesDirectory)"
         
   - task: gitversion/execute@0
   #  inputs:
