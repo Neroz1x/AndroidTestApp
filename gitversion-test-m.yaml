@@ -8,6 +8,7 @@ steps:
     inputs:
       versionSpec: '5.x'
   - task: Bash@3
+    displayName: 'SourceDirectory'
     inputs:
       targetType: 'inline'
       script: |
@@ -31,4 +32,3 @@ steps:
     inputs:
       script: |
         DIFFS="$(git diff HEAD HEAD~ --name-only)"
-        echo $(DIFFS)
