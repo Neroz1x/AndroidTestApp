@@ -20,3 +20,12 @@ steps:
     inputs:
       script: |
         bundle exec fastlane test_gitversion
+        
+  - task: Bash@3
+    displayName: 'Determine which apps were updated'
+    inputs:
+      targetType: 'inline'
+      script: |
+        DIFFS="$(git diff HEAD HEAD~ --name-only)"
+        [[ "${DIFFS[@]}" =~ "app" ]] && echo "app"
+        [[ "${DIFFS[@]}" =~ "app2" ]] && echo "app2"
