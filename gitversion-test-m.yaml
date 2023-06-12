@@ -29,7 +29,6 @@ steps:
   - task: Bash@3
     displayName: 'Determine which apps were updated'
     inputs:
-      targetType: 'inline'
       script: |
         DIFFS="$(git diff HEAD HEAD~ --name-only)"
         [[ "${DIFFS[@]}" =~ "app" ]] && echo "app"
