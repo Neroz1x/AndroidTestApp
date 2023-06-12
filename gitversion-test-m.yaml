@@ -12,7 +12,8 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        echo $(Build.SourcesDirectory) 
+        echo $(Build.SourcesDirectory)
+        echo "$(Build.SourcesDirectory)"
         
   - task: gitversion/execute@0
   #  inputs:
@@ -33,3 +34,4 @@ steps:
       targetType: 'inline'
       script: |
         DIFFS="$(git diff HEAD HEAD~ --name-only)"
+        [[ "${DIFFS[@]}" =~ "packages/shared" ]]
