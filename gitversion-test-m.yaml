@@ -34,4 +34,11 @@ steps:
       targetType: 'inline'
       script: |
         DIFFS="$(git diff HEAD HEAD~ --name-only)"
-        [[ "${DIFFS[@]}" =~ "packages/shared" ]]
+        echo "difs - $(DIFFS)"
+        $DIFFS | ForEach-Object {
+            Switch -Wildcard ($_ ) {
+                'app/*' { Write-Output "app" }
+                'app2/*' { Write-Output "app2" }
+                # The rest of your path filters
+            }
+        }
