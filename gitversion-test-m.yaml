@@ -36,10 +36,10 @@ steps:
         IFS=' ' read -ra ADDR <<< "$(git diff HEAD HEAD~ --name-only)"
         for i in "${ADDR[@]}"; do
           for reqsubstr in 'app' 'alt' 'str';do
-            if [ -z "${string##*$reqsubstr*}" ] ;then
-                echo "String '$string' contain substring: '$reqsubstr'."
+            if [ -z "${i##*$reqsubstr*}" ] ;then
+                echo "String '$i' contain substring: '$reqsubstr'."
             else
-              echo "String '$string' don't contain substring: '$reqsubstr'."
+              echo "String '$i' don't contain substring: '$reqsubstr'."
             fi
           done
         done
