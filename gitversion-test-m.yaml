@@ -17,7 +17,7 @@ steps:
     inputs:
       versionSpec: '5.x'
       
-  - task: itversion/execute@5
+  - task: gitversion/execute@5
     displayName: GitVersion
     inputs:
       configFilePath: '$(Build.SourcesDirectory)/app2/GitVersion.yaml'
