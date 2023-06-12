@@ -5,19 +5,21 @@ pool: selfhosted
 
 steps:  
       
-  - task: Powershell@2
-    displayName: 'buikldvhfgfgd'
-    inputs:
-      targetType: 'inline'
-      script: |
-        ##vso[task.setvariable variable=Build_SourcesDirectory;]$(Build.SourcesDirectory)\app2"
+  #- task: Powershell@2
+  #  displayName: 'buikldvhfgfgd'
+  #  inputs:
+  #    targetType: 'inline'
+  #    script: |
+  #      ##vso[task.setvariable variable=Build_SourcesDirectory;]$(Build.SourcesDirectory)\app2"
         
   - task: Bash@3
     displayName: 'SourceDirectory'
     inputs:
       targetType: 'inline'
       script: |
+        echo "##vso[task.setvariable variable=Build_SourcesDirectory;]$(Build.SourcesDirectory)\app2"
         echo "test - $(Build.SourcesDirectory)"
+        echo "test - $(Build_SourcesDirectory)"
   
   - task: gitversion/setup@0
     inputs:
