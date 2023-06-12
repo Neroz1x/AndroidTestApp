@@ -8,9 +8,9 @@ steps:
     inputs:
       versionSpec: '5.x'
   - task: Bash@3
-   inputs:
-     targetType: 'inline'
-     script: |
+    inputs:
+      targetType: 'inline'
+      script: |
         echo $(Build.SourcesDirectory) 
         
   - task: gitversion/execute@0
