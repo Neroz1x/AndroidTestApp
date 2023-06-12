@@ -31,5 +31,6 @@ steps:
     inputs:
       script: |
         DIFFS="$(git diff HEAD HEAD~ --name-only)"
+        echo $(DIFFS)
         [[ "${DIFFS[@]}" =~ "app" ]] && echo "app"
         [[ "${DIFFS[@]}" =~ "app2" ]] && echo "app2"
