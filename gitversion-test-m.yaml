@@ -12,7 +12,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        echo $(Build.SourcesDirectory)
+        $(Build.SourcesDirectory) = "$(Build.SourcesDirectory)/app2"
         echo "test - $(Build.SourcesDirectory)"
         
   - task: gitversion/execute@0
@@ -34,5 +34,8 @@ steps:
       targetType: 'inline'
       script: |
         echo "diff $(git diff HEAD HEAD~ --name-only)"
-        files=$(git diff HEAD HEAD~ --name-only)
-        echo "files $(files)"
+        $files=$(git diff HEAD HEAD~ --name-only)
+        IFS=';' read -ra ADDR <<< "$files"
+        for i in "${ADDR[@]}"; do
+          echo "process $i"
+        done
