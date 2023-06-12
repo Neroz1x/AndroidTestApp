@@ -33,9 +33,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        echo "diff $(git diff HEAD HEAD~ --name-only)"
-        $files=$(git diff HEAD HEAD~ --name-only)
-        IFS=';' read -ra ADDR <<< "$files"
+        IFS=';' read -ra ADDR <<< "$(git diff HEAD HEAD~ --name-only)"
         for i in "${ADDR[@]}"; do
           echo "process $i"
         done
