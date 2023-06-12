@@ -8,11 +8,7 @@ steps:
     inputs:
       versionSpec: '5.x'
       
-  - task: Powershell@2
-    displayName: 'buikldvhfgfgd'
-    inputs:
-      script: |
-        ##vso[task.setvariable variable=Build_SourcesDirectory;]$(Build.SourcesDirectory)\$(NugetProjectName)"
+  
   - task: Bash@3
     displayName: 'SourceDirectory'
     inputs:
