@@ -34,19 +34,20 @@ steps:
       targetType: 'inline'
       script: |
         $files=$(git diff HEAD HEAD~ --name-only)
+        echo "files $files"
         $temp=$files -split ' '
         $count=$temp.Length
         echo "Total changed $count files"
         For ($i=0; $i -lt $temp.Length; $i++)
         {
-          $name=$temp[$i]
-          echo "this is $name file"
-          if ($name -like "app/*")
-          {
-            Write-Host "app"
-          }
-          if ($name -like "app2/*")
-          {
-            Write-Host "app2"
-          }
+            $name=$temp[$i]
+            echo "this is $name file"
+            if ($name -like "app/*")
+            {
+              Write-Host "app"
+            }
+            if ($name -like "app2/*")
+            {
+              Write-Host "app2"
+            }
         }
