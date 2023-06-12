@@ -33,12 +33,20 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        DIFFS="$(git diff HEAD HEAD~ --name-only)"
-        echo "difs - $(DIFFS)"
-        $DIFFS | ForEach-Object {
-            Switch -Wildcard ($_ ) {
-                'app/*' { Write-Output "app" }
-                'app2/*' { Write-Output "app2" }
-                # The rest of your path filters
-            }
+        $files=$(git diff HEAD HEAD~ --name-only)
+        $temp=$files -split ' '
+        $count=$temp.Length
+        echo "Total changed $count files"
+        For ($i=0; $i -lt $temp.Length; $i++)
+        {
+          $name=$temp[$i]
+          echo "this is $name file"
+          if ($name -like "app/*")
+          {
+            Write-Host "app"
+          }
+          if ($name -like "app2/*")
+          {
+            Write-Host "app2"
+          }
         }
