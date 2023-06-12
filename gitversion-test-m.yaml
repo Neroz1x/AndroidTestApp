@@ -17,10 +17,11 @@ steps:
     inputs:
       versionSpec: '5.x'
       
-  - task: gitversion/execute@5
-    displayName: GitVersion
+  - task: gitversion/execute@0
+    displayName: Determine Version
     inputs:
-      configFilePath: '$(Build.SourcesDirectory)/app2/GitVersion.yaml'
+      useConfigFile: true
+      configFilePath: 'app2\GitVersion.yml'
       
   - task: CmdLine@2
     displayName: 'Publish'
