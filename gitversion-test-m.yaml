@@ -34,7 +34,7 @@ steps:
       targetType: 'inline'
       script: |
         $files=$(git diff HEAD HEAD~ --name-only)
-        echo "files $files"
+        echo "files $(files)"
         $temp=$files -split ' '
         $count=$temp.Length
         echo "Total changed $count files"
