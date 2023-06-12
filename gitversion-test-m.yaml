@@ -32,3 +32,5 @@ steps:
       targetType: 'inline'
       script: |
         DIFFS="$(git diff HEAD HEAD~ --name-only)"
+        [[ "${DIFFS[@]}" =~ "app" ]] && echo "app"
+        #[[ "${DIFFS[@]}" =~ "app2" ]] && echo "app2"
