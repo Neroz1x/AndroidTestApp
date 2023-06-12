@@ -21,7 +21,7 @@ steps:
     displayName: Determine Version
     inputs:
       useConfigFile: true
-      configFilePath: 'app2\GitVersion.yml'
+      configFilePath: 'app2\GitVersion.yaml'
       
   - task: CmdLine@2
     displayName: 'Publish'
