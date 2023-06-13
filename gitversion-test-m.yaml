@@ -38,6 +38,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
+        echo "diffs $(git diff HEAD..develop --name-only)"
         IFS=' ' read -ra DIFFS <<< "$(git diff HEAD HEAD~ --name-only)"
         for i in "${DIFFS[@]}"; do
           for substr in 'app/' ;do
