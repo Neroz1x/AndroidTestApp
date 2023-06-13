@@ -63,4 +63,4 @@ steps:
       script: |
         echo $(hasApleonaChanges)
         echo $(hasIntuneChanges)
-        echo "Ok "
+        echo "Ok"
