@@ -40,7 +40,6 @@ steps:
       script: |
         DIFF=$(git diff HEAD..develop --name-only)
         mapfile -t DIFFS <<< "$DIFF"
-        echo "diff 1 ${DIFFS[1]}"
         for i in "${DIFFS[@]}"; do
           echo "i = $i"
           for substr in 'app/' ;do
@@ -63,4 +62,4 @@ steps:
         echo $(hasIntuneChanges)
         echo $(schema) eq 'ApleonaIntune'
         echo "Ok"
-      condition: and(succeeded(), or(and(eq($(hasIntuneChanges), true), eq($(schema), 'ApleonaIntune')), and(eq($(hasApleonaChanges), true), eq($(schema), 'Apleona'))))
+      condition: and(succeeded(), eq($(schema), 'Apleona'))
