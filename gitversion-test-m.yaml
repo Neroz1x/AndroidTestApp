@@ -34,13 +34,14 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        IFS=' ' read -ra ADDR <<< "$(git diff HEAD HEAD~ --name-only)"
-        for i in "${ADDR[@]}"; do
-          for reqsubstr in 'app' 'alt' 'str';do
-            if [ -z "${i##*$reqsubstr*}" ] ;then
-                echo "String '$i' contain substring: '$reqsubstr'."
-            else
-              echo "String '$i' don't contain substring: '$reqsubstr'."
-            fi
+        IFS=' ' read -ra DIFFS <<< "$(git diff HEAD HEAD~ --name-only)"
+        for i in "${DIFFS[@]}"; do
+          for substr in 'app/' ;do
+            if [ -z "${i##*$substr*}" ] ;then
+              echo "##vso[task.setvariable variable=hasIntuneChanges]true"
+          done
+          for reqsubstr in 'app2/' ;do
+            if [ -z "${i##*$substr*}" ] ;then
+              echo "##vso[task.setvariable variable=hasApleonaChanges]true"
           done
         done
