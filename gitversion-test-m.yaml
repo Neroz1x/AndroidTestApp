@@ -2,7 +2,11 @@ trigger:
   - main
 
 pool: selfhosted
-
+variables:
+  - name: hasIntuneChanges
+    value: false
+  - name: hasApleonaChanges
+    value: false
 steps:  
       
   #- task: Powershell@2
@@ -45,3 +49,10 @@ steps:
               echo "##vso[task.setvariable variable=hasApleonaChanges]true"
           done
         done
+ - task: Bash@3
+    displayName: 'Determine which apps were updated'
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "Ok"
+     condition: and(succeeded(), or(and(eq(variables.hasIntuneChanges, true), eq($(schema), 'ApleonaIntune')), and(eq(variables.hasApleonaChanges, true), eq($(schema), 'Apleona'))))
