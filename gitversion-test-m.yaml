@@ -55,10 +55,10 @@ steps:
         done
   - task: Bash@3
     displayName: 'Determine which apps were updated'
+    condition: and(succeeded(), or(and(eq($(hasIntuneChanges), true), eq($(schema), 'ApleonaIntune')), and(eq($(hasApleonaChanges), true), eq($(schema), 'Apleona2'))))
     inputs:
       targetType: 'inline'
       script: |
         echo $(hasApleonaChanges)
         echo $(hasIntuneChanges)
         echo "Ok"
-      condition: and(1 == 0)
