@@ -43,12 +43,12 @@ steps:
         mapfile -t DIFFS <<< "$DIFF"
         for i in "${DIFFS[@]}"; do
           echo "i = $i"
-          for substr in 'app/' ;do
+          for substr in 'app' ;do
             if [ -z "${i##*$substr*}" ] ;then
               echo "##vso[task.setvariable variable=hasIntuneChanges]true"
             fi
           done
-          for reqsubstr in 'app2/' ;do
+          for reqsubstr in 'app2' ;do
             if [ -z "${i##*$substr*}" ] ;then
               echo "##vso[task.setvariable variable=hasApleonaChanges]true"
             fi
