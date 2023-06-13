@@ -1,5 +1,8 @@
+parameters:
+  condition: ''
+  
 steps:
-- ${{ if false }}:
+- ${{ if condition }}:
   - task: Bash@3
     displayName: 'Install bash'
     inputs:
