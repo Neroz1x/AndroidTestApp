@@ -50,9 +50,9 @@ steps:
           done
         done
  - task: Bash@3
-    displayName: 'Determine which apps were updated'
-    inputs:
-      targetType: 'inline'
-      script: |
-        echo "Ok"
+   displayName: 'Determine which apps were updated'
+   inputs:
+     targetType: 'inline'
+     script: |
+       echo "Ok"
      condition: and(succeeded(), or(and(eq(variables.hasIntuneChanges, true), eq($(schema), 'ApleonaIntune')), and(eq(variables.hasApleonaChanges, true), eq($(schema), 'Apleona'))))
