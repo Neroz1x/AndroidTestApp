@@ -41,7 +41,7 @@ steps:
         echo "$(hasIntuneChanges)"
         echo "$(hasApleonaChanges)"
   - ${{ if true }}:
-    - template: temple.yaml
+    - template: temple2.yaml
       
   - task: Bash@3
     displayName: 'Determine which apps were updated'
