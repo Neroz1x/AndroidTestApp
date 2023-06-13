@@ -39,7 +39,7 @@ steps:
       targetType: 'inline'
       script: |
         DIFF=$(git diff HEAD..develop --name-only)
-        IFS=$'\n' read -ra DIFFS <<< "$DIFF"
+        mapfile -t DIFFS <<< "$DIFF"
         echo "diff 1 ${DIFFS[1]}"
         for i in "${DIFFS[@]}"; do
           echo "i = $i"
