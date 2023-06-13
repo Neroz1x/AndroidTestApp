@@ -2,7 +2,7 @@ parameters:
   shouldExecute: false
   
 steps:
-- ${{ if parameters.shouldExecute == true }}:
+- ${{ if eq(parameters.shouldExecute, 'true') }}:
   - task: Bash@3
     displayName: 'Install bash'
     inputs:
