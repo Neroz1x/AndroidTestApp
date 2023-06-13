@@ -40,7 +40,7 @@ steps:
         done
         echo "$(hasIntuneChanges)"
         echo "$(hasApleonaChanges)"
-  - ${{ if true }}:
+  - ${{ if false }}:
     - template: temple2.yaml
       
   - task: Bash@3
