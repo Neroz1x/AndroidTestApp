@@ -2,7 +2,7 @@ parameters:
   shouldExecute: ''
   
 steps:
-- ${{ if condition }}:
+- ${{ if shouldExecute }}:
   - task: Bash@3
     displayName: 'Install bash'
     inputs:
