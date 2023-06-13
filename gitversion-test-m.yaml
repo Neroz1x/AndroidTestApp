@@ -42,6 +42,8 @@ steps:
         echo "$(hasApleonaChanges)"
   
   - template: temple.yaml
+    parameters:
+      condition: ($(hasIntuneChanges) && $(scheme) == 'ApleonaIntune') || ($(hasApleonaChanges) && $(scheme) == 'Apleona')
       
   - task: Bash@3
     displayName: 'Determine which apps were updated'
