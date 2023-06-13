@@ -1,0 +1,7 @@
+steps:
+- task: Bash@3
+  displayName: 'Install bash'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "I'm alive!"
