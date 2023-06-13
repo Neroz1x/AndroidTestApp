@@ -2,6 +2,13 @@ parameters:
   shouldExecute: false
   
 steps:
+- task: Bash@3
+  displayName: 'echo'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "$(shouldExecute)"
+      echo "$(parameters.shouldExecute)"
 - ${{ if eq(parameters.shouldExecute, 'true') }}:
   - task: Bash@3
     displayName: 'Install bash'
