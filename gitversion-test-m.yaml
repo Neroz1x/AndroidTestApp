@@ -40,12 +40,9 @@ steps:
         done
         echo "$(hasIntuneChanges)"
         echo "$(hasApleonaChanges)"
-  - ${{ if eq(variables['schema'], 'Apleona') }}:
-    - template: ../templates/build-pr-validation.yaml
-      parameters:
-        configuration: 'Test'
-        schema: $(schema)
-        destinationSimulators: 'iPhone 8'
+  - ${{ if true }}:
+    - template: temple.yaml
+      
   - task: Bash@3
     displayName: 'Determine which apps were updated'
     condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona'))))
