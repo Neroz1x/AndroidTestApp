@@ -16,22 +16,7 @@ steps:
   #    script: |
   #      ##vso[task.setvariable variable=Build_SourcesDirectory;]$(Build.SourcesDirectory)\app2"
     
-  
-  - task: gitversion/setup@0
-    inputs:
-      versionSpec: '5.x'
-      
-  - task: gitversion/execute@0
-    displayName: Determine Version
-    inputs:
-      useConfigFile: true
-      configFilePath: 'app2\GitVersion.yaml'
-      
-  - task: CmdLine@2
-    displayName: 'Publish'
-    inputs:
-      script: |
-        fastlane test_gitversion
+
         
   - task: Bash@3
     displayName: 'Determine which apps were updated'
@@ -55,7 +40,7 @@ steps:
         done
         echo "$(hasIntuneChanges)"
         echo "$(hasApleonaChanges)"
-  - ${{ if or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasWorkplacesChanges'], 'true'), eq(variables['schema'], 'Apleona'))) }}:
+  - ${{ if true }}:
     - template: ../templates/build-pr-validation.yaml
       parameters:
         configuration: 'Test'
