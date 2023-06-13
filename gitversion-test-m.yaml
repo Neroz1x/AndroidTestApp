@@ -39,6 +39,7 @@ steps:
       targetType: 'inline'
       script: |
         DIFF=$(git diff HEAD..develop --name-only)
+        echo "doffs $(DIFFS)"
         mapfile -t DIFFS <<< "$DIFF"
         for i in "${DIFFS[@]}"; do
           echo "i = $i"
