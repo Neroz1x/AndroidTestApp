@@ -1,17 +1,8 @@
-parameters:
-  shouldExecute: false
-  
-steps:
+
 - task: Bash@3
-  displayName: 'echo'
+  displayName: 'Install bash'
+  condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona'))))
   inputs:
     targetType: 'inline'
     script: |
-      echo "${{ parameters.shouldExecute }}"
-- ${{ if eq(variables['parameters.shouldExecute'], 'true') }}:
-  - task: Bash@3
-    displayName: 'Install bash'
-    inputs:
-      targetType: 'inline'
-      script: |
-        echo "I'm alive!"
+      echo "I'm alive!"
