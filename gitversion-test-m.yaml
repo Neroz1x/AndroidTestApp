@@ -60,6 +60,5 @@ steps:
       script: |
         echo $(hasApleonaChanges)
         echo $(hasIntuneChanges)
-        echo $($(schema) == 'ApleonaIntune')
         echo "Ok"
-      condition: and(succeeded(), $("$(schema)" == "ApleonaIntune"))
+      condition: and(succeeded(), False)
