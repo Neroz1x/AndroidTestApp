@@ -1,5 +1,5 @@
 parameters:
-  shouldExecute: ''
+  shouldExecute: false
   
 steps:
 - ${{ if parameters.shouldExecute }}:
