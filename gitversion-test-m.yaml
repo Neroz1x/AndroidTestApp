@@ -39,17 +39,16 @@ steps:
       targetType: 'inline'
       script: |
         DIFF=$(git diff HEAD..develop --name-only)
-        echo "doffs $(DIFFS)"
         mapfile -t DIFFS <<< "$DIFF"
         for i in "${DIFFS[@]}"; do
           echo "i = $i"
-          for substr in 'app' ;do
-            if [ -z "${i##*$substr*}" ] ;then
+          for substr in 'app/' ;do
+            if [[ $i == *substr* ]] ;then
               echo "##vso[task.setvariable variable=hasIntuneChanges]true"
             fi
           done
-          for reqsubstr in 'app2' ;do
-            if [ -z "${i##*$substr*}" ] ;then
+          for reqsubstr in 'app2/' ;do
+            if [[ $i == *substr* ]] ;then
               echo "##vso[task.setvariable variable=hasApleonaChanges]true"
             fi
           done
