@@ -43,7 +43,7 @@ steps:
   
   - template: temple.yaml
     parameters:
-      shouldExecute: true
+      shouldExecute: ($(hasIntuneChanges) && $(scheme) == 'ApleonaIntune') || ($(hasApleonaChanges) && $(scheme) == 'Apleona')
       
   - task: Bash@3
     displayName: 'Determine which apps were updated'
