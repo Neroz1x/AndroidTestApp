@@ -43,10 +43,12 @@ steps:
           for substr in 'app/' ;do
             if [ -z "${i##*$substr*}" ] ;then
               echo "##vso[task.setvariable variable=hasIntuneChanges]true"
+            fi
           done
           for reqsubstr in 'app2/' ;do
             if [ -z "${i##*$substr*}" ] ;then
               echo "##vso[task.setvariable variable=hasApleonaChanges]true"
+            fi
           done
         done
   - task: Bash@3
