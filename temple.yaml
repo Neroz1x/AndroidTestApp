@@ -8,8 +8,8 @@ steps:
     targetType: 'inline'
     script: |
       echo "$(shouldExecute)"
-      echo "$(parameters.shouldExecute)"
-- ${{ if eq(parameters.shouldExecute, 'true') }}:
+      echo "${{ parameters.configuration }}"
+- ${{ if eq(${{ parameters.configuration }}, 'true') }}:
   - task: Bash@3
     displayName: 'Install bash'
     inputs:
