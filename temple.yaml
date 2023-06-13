@@ -1,8 +1,8 @@
-
-- task: Bash@3
-  displayName: 'Install bash'
-  condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona'))))
-  inputs:
-    targetType: 'inline'
-    script: |
-      echo "I'm alive!"
+- steps:
+  - task: Bash@3
+    displayName: 'Install bash'
+    condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona'))))
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "I'm alive!"
