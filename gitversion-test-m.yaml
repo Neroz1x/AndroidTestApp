@@ -43,7 +43,7 @@ steps:
   
   - template: temple.yaml
     parameters:
-      shouldExecute: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona'))))
+      shouldExecute: $(and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona')))))
       
   - task: Bash@3
     displayName: 'Determine which apps were updated'
