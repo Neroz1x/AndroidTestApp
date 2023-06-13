@@ -61,4 +61,4 @@ steps:
         echo $(hasApleonaChanges)
         echo $(hasIntuneChanges)
         echo "Ok"
-      condition: and(0)
+      condition: and(1 == 0)
