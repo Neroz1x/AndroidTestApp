@@ -40,7 +40,8 @@ steps:
       script: |
         echo "diffs $(git diff HEAD...develop --name-only)"
         echo "diffs2 $(git diff HEAD..develop --name-only)"
-        IFS=$'\n' read -ra DIFFS <<< "$(git diff HEAD..develop --name-only)"
+        DIFFS=$(git diff HEAD..develop --name-only)
+        
         for i in "${DIFFS[@]}"; do
           echo "i = $i"
           for substr in 'app/' ;do
