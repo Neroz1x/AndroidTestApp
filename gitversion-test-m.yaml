@@ -55,7 +55,7 @@ steps:
         done
   - task: Bash@3
     displayName: 'Determine which apps were updated'
-    condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona2'))))
+    condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'True'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'True'), eq(variables['schema'], 'Apleona2'))))
     inputs:
       targetType: 'inline'
       script: |
