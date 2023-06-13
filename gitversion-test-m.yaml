@@ -62,4 +62,4 @@ steps:
         echo $(hasIntuneChanges)
         echo $(schema) eq 'ApleonaIntune'
         echo "Ok"
-      condition: and(succeeded(), eq($(schema), 'Apleona'))
+      condition: and(succeeded(), eq($(schema), 'ApleonaIntune'))
