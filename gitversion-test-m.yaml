@@ -43,7 +43,7 @@ steps:
   
   - template: temple.yaml
     parameters:
-      shouldExecute: false
+      shouldExecute: true
       
   - task: Bash@3
     displayName: 'Determine which apps were updated'
