@@ -60,7 +60,6 @@ steps:
       script: |
         echo $(hasApleonaChanges)
         echo $(hasIntuneChanges)
-        echo eq($(schema), 'ApleonaIntune')
-        echo eq($(schema), 'Apleona')
+        echo $(schema) eq 'ApleonaIntune'
         echo "Ok"
-      condition: and(succeeded(), or(and(eq(variables.hasIntuneChanges, true), eq($(schema), 'ApleonaIntune')), and(eq(variables.hasApleonaChanges, true), eq($(schema), 'Apleona'))))
+      condition: and(succeeded(), or(and(eq($(hasIntuneChanges), true), eq($(schema), 'ApleonaIntune')), and(eq($(hasApleonaChanges), true), eq($(schema), 'Apleona'))))
