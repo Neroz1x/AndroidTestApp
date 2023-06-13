@@ -40,7 +40,7 @@ steps:
         done
         echo "$(hasIntuneChanges)"
         echo "$(hasApleonaChanges)"
-  - ${{ if eq(variables['hasApleonaChanges'], 'true') }}:
+  - ${{ if eq(variables['schema'], 'Apleona') }}:
     - template: ../templates/build-pr-validation.yaml
       parameters:
         configuration: 'Test'
