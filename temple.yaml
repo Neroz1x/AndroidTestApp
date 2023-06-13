@@ -7,7 +7,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      echo "$(shouldExecute)"
       echo "${{ parameters.shouldExecute }}"
 - ${{ if eq(variables['parameters.shouldExecute'], 'true') }}:
   - task: Bash@3
