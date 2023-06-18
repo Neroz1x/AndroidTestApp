@@ -24,9 +24,9 @@ steps:
   
   - task: gitversion/execute@0
     inputs:
-      targetPath: '/app2'
+      targetPath: '$(Build.SourcesDirectory)/app2'
       useConfigFile: true
-      configFilePath: '/app2'
+      configFilePath: '$(Build.SourcesDirectory)/app2/GitVersion.yaml'
 
   - task: gitversion/execute@0
     inputs:
