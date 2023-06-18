@@ -9,46 +9,49 @@ variables:
     value: false
 steps:  
       
-  #- task: Powershell@2
-  #  displayName: 'buikldvhfgfgd'
+  - task: Powershell@2
+    displayName: 'buikldvhfgfgd'
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo $(Build.SourcesDirectory)
+        ##vso[task.setvariable variable=Build_SourcesDirectory;]$(Build.SourcesDirectory)\app2"
+    
+  - task: gitversion/setup@0
+    inputs:
+      versionSpec: '5.x'
+        
+  #- task: Bash@3
+  #  displayName: 'Determine which apps were updated'
   #  inputs:
   #    targetType: 'inline'
   #    script: |
-  #      ##vso[task.setvariable variable=Build_SourcesDirectory;]$(Build.SourcesDirectory)\app2"
-    
-
-        
-  - task: Bash@3
-    displayName: 'Determine which apps were updated'
-    inputs:
-      targetType: 'inline'
-      script: |
-        DIFF=$(git diff HEAD..develop --name-only)
-        mapfile -t DIFFS <<< "$DIFF"
-        for i in "${DIFFS[@]}"; do
-          echo "i = $i"
-          for substr in 'app/' ;do
-            if [[ $i == *"$substr"* ]] ;then
-              echo "##vso[task.setvariable variable=hasIntuneChanges]true"
-            fi
-          done
-          for substr in 'app2/' ;do
-            if [[ $i == *"$substr"* ]] ;then
-              echo "##vso[task.setvariable variable=hasApleonaChanges]true"
-            fi
-          done
-        done
-        echo "$(hasIntuneChanges)"
-        echo "$(hasApleonaChanges)"
+  #      DIFF=$(git diff HEAD..develop --name-only)
+  #      mapfile -t DIFFS <<< "$DIFF"
+  #      for i in "${DIFFS[@]}"; do
+  ##        echo "i = $i"
+  #        for substr in 'app/' ;do
+  #          if [[ $i == *"$substr"* ]] ;then
+  #            echo "##vso[task.setvariable variable=hasIntuneChanges]true"
+  #          fi
+  #        done
+  #        for substr in 'app2/' ;do
+  #          if [[ $i == *"$substr"* ]] ;then
+  #            echo "##vso[task.setvariable variable=hasApleonaChanges]true"
+  #          fi
+  #        done
+  #      done
+  #      echo "$(hasIntuneChanges)"
+  #      echo "$(hasApleonaChanges)"
   
-  - template: temple.yaml
+  #- template: temple.yaml
          
-  - task: Bash@3
-    displayName: 'Determine which apps were updated'
-    condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona'))))
-    inputs:
-      targetType: 'inline'
-      script: |
-        echo $(hasApleonaChanges)
-        echo $(hasIntuneChanges)
-        echo "Ok "
+  #- task: Bash@3
+  #  displayName: 'Determine which apps were updated'
+  #  condition: and(succeeded(), or(and(eq(variables['hasIntuneChanges'], 'true'), eq(variables['schema'], 'ApleonaIntune')), and(eq(variables['hasApleonaChanges'], 'true'), eq(variables['schema'], 'Apleona'))))
+  #  inputs:
+  #    targetType: 'inline'
+  #    script: |
+  #      echo $(hasApleonaChanges)
+  #      echo $(hasIntuneChanges)
+  #      echo "Ok "
