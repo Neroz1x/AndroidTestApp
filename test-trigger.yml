@@ -1,8 +1,9 @@
 trigger:
-  template: trigger-template.yml
+  template:
+    path: trigger-template.yml
     parameters:
-      branchInclude: master
-      scheme: $(scheme)
+      branch: ${{ variables.branch }}
+      excludePath: ${{ variables.excludePath }}
 
 pool: selfhosted
 
