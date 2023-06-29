@@ -1,0 +1,16 @@
+trigger:
+  template:
+  path: trigger-template.yml
+  parameters:
+    branchInclude: develop
+    scheme: $(scheme)
+
+pool: selfhosted
+
+steps:  
+  - task: Powershell@2
+    displayName: 'buikldvhfgfgd'
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "I'm alive"
