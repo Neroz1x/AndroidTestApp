@@ -1,9 +1,9 @@
 trigger:
   template:
-  path: trigger-template.yml
-  parameters:
-    branchInclude: master
-    scheme: $(scheme)
+    path: trigger-template.yml
+    parameters:
+      branchInclude: master
+      scheme: $(scheme)
 
 pool: selfhosted
 
