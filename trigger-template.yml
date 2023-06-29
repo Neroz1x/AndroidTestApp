@@ -1,0 +1,13 @@
+parameters:
+- name: brancheInclude
+  type: string
+- name: scheme
+  type: string
+
+trigger:
+  branches:
+    include:
+    - ${{ parameters.branchInclude }}
+  paths:
+    exclude:
+    - $( if eq(variables['scheme'], 'app'), app2)
