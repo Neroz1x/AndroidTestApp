@@ -1,6 +1,5 @@
 trigger:
-  template:
-    path: trigger-template.yml
+  template: trigger-template.yml
     parameters:
       branchInclude: master
       scheme: $(scheme)
