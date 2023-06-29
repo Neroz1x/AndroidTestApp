@@ -2,7 +2,7 @@ trigger:
   template:
   path: trigger-template.yml
   parameters:
-    branchInclude: develop
+    branchInclude: master
     scheme: $(scheme)
 
 pool: selfhosted
