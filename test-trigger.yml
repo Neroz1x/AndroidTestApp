@@ -4,7 +4,7 @@ trigger:
     - main
   paths:
     exclude:
-    - ${{ variables['app-paths'] }}
+    - $(if eq(true, true), app, app2)
 pool: selfhosted
 
 steps:  
