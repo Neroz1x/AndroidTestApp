@@ -1,10 +1,10 @@
 trigger:
-  template:
-    path: trigger-template.yml
-    parameters:
-      branch: ${{ variables.branch }}
-      excludePath: ${{ variables.excludePath }}
-
+  branches:
+    include:
+    - main
+  paths:
+    exclude:
+    - ${{ variables['app-paths'] }}
 pool: selfhosted
 
 steps:  
