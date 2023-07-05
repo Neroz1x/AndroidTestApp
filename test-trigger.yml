@@ -4,7 +4,7 @@ trigger:
     - main
   paths:
     exclude:
-    - $(if eq(true, true), 'app/**', 'app2/**')
+    - app
 pool: selfhosted
 
 steps:  
