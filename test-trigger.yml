@@ -3,9 +3,11 @@ trigger:
 
 pool: selfhosted
 
-dependsOn:
-- pipeline: gitversion-m
-  successful: true
+resources:
+ pipelines:
+   - pipeline:
+     source: gitversion-m
+     
 
 steps:  
   - task: Powershell@2
