@@ -41,7 +41,7 @@ steps:
           elseif ($BuildStatus -ne "completed") {
             Write-Host "$key is $BuildStatus"
             $loopCounter = $loopCounter + 1
-            Start-Sleep -Seconds 20
+            Start-Sleep -Seconds 120
             continue 2
           }
         }
