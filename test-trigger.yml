@@ -1,11 +1,4 @@
-
-
 pool: selfhosted
-
-resources:
- pipelines:
-   - pipeline: my-test-p
-     source: Folder1\gitversion-m
 
 
 steps:  
