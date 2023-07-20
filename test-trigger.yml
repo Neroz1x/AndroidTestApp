@@ -3,7 +3,7 @@ pool: selfhosted
 resources:
  pipelines:
    - pipeline: my-test-p
-     source: gitversion-test-m.yaml
+     source: Folder1/gitversion-m
 
 steps:  
   - task: Powershell@2
