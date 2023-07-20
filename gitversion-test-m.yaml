@@ -38,7 +38,7 @@ steps:
     displayName: 'Publish'
     inputs:
       script: |
-        bundle exec fastlane test_gitversion_
+        bundle exec fastlane test_gitversion
         
   #- task: Bash@3
   #  displayName: 'Determine which apps were updated'
