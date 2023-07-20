@@ -1,11 +1,10 @@
-trigger:
-- none
+
 
 pool: selfhosted
 
 resources:
  pipelines:
-   - pipeline: test
+   - pipeline: my-test-p
      source: gitversion-m
 
 
