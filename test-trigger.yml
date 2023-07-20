@@ -36,10 +36,11 @@ steps:
           Write-Host "status $BuildStatus"
           Write-Host "result $BuildResult"
           Write-Host "$($BuildStatus -ne "completed")"
-          if ($BuildStatus -ne "completed") {
-            if ($BuildResult -ne "succeeded") { # Consider adding 'partiallySucceeded' status.
-              Write-Host "$key is $BuildResult. Stop this run."
-            }
+          if ($BuildStatus -eq "completed" && $BuildResult -ne "succeeded") { # Consider adding 'partiallySucceeded' status.
+            Write-Host "$key is $BuildResult. Stop this run."
+            break 2
+          }
+          elseif ($BuildStatus -ne "completed") {
             Write-Host "$key is $BuildStatus"
             $loopCounter = $loopCounter + 1
             Start-Sleep -Seconds 20
