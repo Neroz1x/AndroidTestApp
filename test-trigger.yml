@@ -45,6 +45,7 @@ steps:
             continue 2
           }
         }
+        Write-Host "##vso[task.setvariable variable=allFinished]1"
         break
       }
   env:
