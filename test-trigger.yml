@@ -4,6 +4,7 @@ resources:
  pipelines:
    - pipeline: my-test-p
      source: gitversion-m
+     trigger: true
 
 steps:  
   - task: Powershell@2
