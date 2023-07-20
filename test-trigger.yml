@@ -25,7 +25,7 @@ steps:
         }
         foreach ($key in $vars.Keys) {
           $url = "https://dev.azure.com/neroz1x/DevOps%20test/_apis/build/builds?definitions=${vars[$key]}&api-version=5.1"
-          $connectionToken="4gzs6baeyrcdrotiauqtjzj4awi3i3kypdjedtj2wogy32zshaaa"
+          $connectionToken=${env:SECRET}
           $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
 
           $buildPipeline= Invoke-RestMethod -Uri $url -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
