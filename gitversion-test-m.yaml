@@ -14,6 +14,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
+        Start-Sleep -Seconds 9990
         echo $(Build.SourcesDirectory)
         #Write-Host "##vso[task.setvariable variable=Build.SourcesDirectory;]$(Build.SourcesDirectory)\app2"
         echo $(Build.SourcesDirectory)
@@ -38,7 +39,7 @@ steps:
     displayName: 'Publish'
     inputs:
       script: |
-        bundle exec fastlane test_gitversion_
+        bundle exec fastlane test_gitversion
         
   #- task: Bash@3
   #  displayName: 'Determine which apps were updated'
