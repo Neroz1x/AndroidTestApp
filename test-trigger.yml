@@ -5,7 +5,7 @@ pool: selfhosted
 resources:
  pipelines:
    - pipeline: my-test-p
-     source: gitversion-m
+     source: Folder1\gitversion-m
 
 
 steps:  
