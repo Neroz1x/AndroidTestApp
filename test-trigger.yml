@@ -21,7 +21,8 @@ steps:
 
 
        $BuildResult= $buildPipeline.value.result | Select-Object -first 1
-
+       
+       Write-Host $buildPipeline
 
        Write-Host This is Build Result: $BuildResult
 
