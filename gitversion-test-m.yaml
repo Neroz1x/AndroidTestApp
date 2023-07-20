@@ -15,7 +15,7 @@ steps:
       targetType: 'inline'
       script: |
         echo $(Build.SourcesDirectory)
-        #Write-Host "##vso[task.setvariable variable=Build.SourcesDirectory;]$(Build.SourcesDirectory)\app2"
+        #Write-Host "##vso[task.setvariable variable=Build.SourcesDirectory1;]$(Build.SourcesDirectory)\app2"
         echo $(Build.SourcesDirectory)
     
   - task: gitversion/setup@0
