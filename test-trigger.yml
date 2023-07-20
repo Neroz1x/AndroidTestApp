@@ -15,14 +15,13 @@ steps:
     script: |
       Write-Error "An error occurred during the CI process."
       $loopCounter= 0
-      Write-Host "##vso[task.setvariable variable=allFinished]0"
       $vars = @{
         "ci-1" = 4
         "ci-2" = 7
       }
       while ($true) {
         if($loopCounter -ge 5) {
-          Write-Host "There were $loopCounter retries. Stop the CI."
+          Write-Error "Retries exceeded. There were $loopCounter retries. Stop the CI."
           break
         }
         foreach ($key in $vars.Keys) {
@@ -37,7 +36,7 @@ steps:
           Write-Host "status $BuildStatus"
           Write-Host "result $BuildResult"
           if ($BuildStatus -eq "completed" -And $BuildResult -ne "succeeded") { # Consider adding 'partiallySucceeded' status.
-            Write-Host "$key is $BuildResult. Stop this run."
+            Write-Error "$key is $BuildResult. Stop this run."
             break 2
           }
           elseif ($BuildStatus -ne "completed") {
@@ -47,7 +46,6 @@ steps:
             continue 2
           }
         }
-        Write-Host "##vso[task.setvariable variable=allFinished]1"
         break
       }
   env:
@@ -55,7 +53,6 @@ steps:
 
 
 - task: PowerShell@2
-  condition: and(succeeded(), eq(variables['allFinished'], '1'))
   inputs:
     targetType : inline
     script: |
