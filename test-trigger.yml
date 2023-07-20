@@ -17,7 +17,7 @@ steps:
      $connectionToken="aaxr6yzn7zd5j7mtfmqcexigcpicj7h2eyliaam7amknlmxwttua"
      $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
 
-       $buildPipeline= Invoke-RestMethod -Uri $url -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
+       $buildPipeline= Invoke-RestMethod -Uri $url -Headers @{authorization = "Bearer $base64AuthInfo"} -Method Get
 
 
        $BuildResult= $buildPipeline.value.result | Select-Object -first 1
