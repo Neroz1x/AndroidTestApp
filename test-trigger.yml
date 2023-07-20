@@ -13,7 +13,6 @@ steps:
   inputs:
     targetType : inline
     script: |
-      Write-Error "An error occurred during the CI process."
       $loopCounter= 0
       $vars = @{
         "ci-1" = 4
