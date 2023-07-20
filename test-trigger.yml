@@ -24,7 +24,7 @@ steps:
           break
         }
         foreach ($key in $vars.Keys) {
-          $url = "https://dev.azure.com/neroz1x/DevOps%20test/_apis/build/builds?definitions=${vars[$key]}&api-version=5.1"
+          $url = "https://dev.azure.com/neroz1x/DevOps%20test/_apis/build/builds?definitions=$vars[$key]&api-version=5.1"
           $connectionToken=${env:SECRET}
           $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
 
