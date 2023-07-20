@@ -11,18 +11,38 @@ resources:
 steps:  
 - task: PowerShell@2
   inputs:
-   targetType : inline
-   script: |
-     $url = "https://dev.azure.com/neroz1x/DevOps%20test/_apis/build/builds?definitions=4&api-version=5.1"
-     $connectionToken="${env:SECRET}"
-     $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
+    targetType : inline
+    script: |
+      $loopCounter= 0
+      declare -A vars
+      vars["ci-1"]=4
+      vars["ci-2"]=7
+      while true; do
+        if [ $loopCounter -ge 5]; then
+          echo "There were $loopCounter retries. Stop the CI."
+          break
+        fi
+        for key in "${!vars[@]}"; do
+        $url = "https://dev.azure.com/neroz1x/DevOps%20test/_apis/build/builds?definitions=${vars[$key]}&api-version=5.1"
+          $connectionToken="gtwukahpp5o6fl25tlaljieihrir7fpxeexhgu5nkgb3xb7e3ibq"
+          $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
 
-       $buildPipeline= Invoke-RestMethod -Uri $url -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
+          $buildPipeline= Invoke-RestMethod -Uri $url -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
+          $BuildStatus= $buildPipeline.value.status | Select-Object -first 1
+          $BuildResult= $buildPipeline.value.result | Select-Object -first 1
 
+          Write-Host "status $BuildStatus"
+          Write-Host "result $BuildResult"
+          if [ $BuildStatus -ne "completed"]; then
+            if [ $BuildResult -ne "succeeded"]; then # Consider adding 'partiallySucceeded' status.
+              echo "${!vars[@]} is $BuildResult. Stop this run."
+            fi
+            echo "${!vars[@]} is $BuildStatus"
+            sleep 120
+            continue 2
+          fi
+        done
+        break
+      done
 
-       $BuildResult= $buildPipeline.value.status | Select-Object -first 1
-       
-       Write-Host $buildPipeline
-
-       Write-Host This is Build Result: $BuildResult
 
