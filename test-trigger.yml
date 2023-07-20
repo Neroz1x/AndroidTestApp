@@ -5,9 +5,9 @@ pool: selfhosted
 
 resources:
  pipelines:
-   - pipeline:
+   - pipeline: test
      source: gitversion-m
-     
+
 
 steps:  
   - task: Powershell@2
