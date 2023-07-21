@@ -30,6 +30,7 @@ steps:
       }
 
       $response = Invoke-RestMethod -Uri $tokenUrl -Method Post -Body $body
+      Write-Host "Response - $response"
       $accessToken = $response.access_token
       $uri = "https://dev.azure.com/$org/$project/_apis/build/builds?api-version=5.1"
 
