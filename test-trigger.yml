@@ -39,7 +39,7 @@ steps:
       }
 
       $response = Invoke-RestMethod -Uri $uri -Headers $headers -Method Get
-      rite-Host "Response 2 - $response"
+      Write-Host "Response 2 - $response"
       $response.value | ForEach-Object {
           Write-Host "Build $($_.id) - $($_.status)"
       }
