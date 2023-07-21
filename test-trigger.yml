@@ -18,7 +18,7 @@ steps:
       $clientId = "16401264-7975-422d-a6dc-df7ed9ca487f"
       $clientSecret = "sx68Q~hjoxhcT2RvX-JJjvtD2_IWM0p.D.4ItcX_"
       $tenantId = "49c4f7b6-63e2-452b-84f2-18c8aabc0b91"
-      $resource = "https://dev.azure.com/$org"
+      $resource = "https://dev.azure.com"
 
       $tokenUrl = "https://login.microsoftonline.com/$tenantId/oauth2/token"
 
