@@ -13,6 +13,36 @@ steps:
   inputs:
     targetType : inline
     script: |
+      $org = "apleona"
+      $project = "ApleonaEcosystem%202.0"
+      $clientId = "16401264-7975-422d-a6dc-df7ed9ca487f"
+      $clientSecret = "sx68Q~hjoxhcT2RvX-JJjvtD2_IWM0p.D.4ItcX_"
+      $tenantId = "49c4f7b6-63e2-452b-84f2-18c8aabc0b91"
+      $resource = "https://dev.azure.com/$org"
+
+      $tokenUrl = "https://login.microsoftonline.com/$tenantId/oauth2/token"
+
+      $body = @{
+          grant_type    = "client_credentials"
+          client_id     = $clientId
+          client_secret = $clientSecret
+          resource      = $resource
+      }
+
+      $response = Invoke-RestMethod -Uri $tokenUrl -Method Post -Body $body
+      $accessToken = $response.access_token
+      $uri = "https://dev.azure.com/$org/$project/_apis/build/builds?api-version=5.1"
+
+      $headers = @{
+          Authorization = "Bearer $accessToken"
+      }
+
+      $response = Invoke-RestMethod -Uri $uri -Headers $headers -Method Get
+
+      $response.value | ForEach-Object {
+          Write-Host "Build $($_.id) - $($_.status)"
+      }
+      Write-Host "Done"
       $loopCounter= 0
       $vars = @{
         "ci-1" = 4
