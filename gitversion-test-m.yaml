@@ -14,7 +14,6 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        Start-Sleep -Seconds 9990
         echo $(Build.SourcesDirectory)
         #Write-Host "##vso[task.setvariable variable=Build.SourcesDirectory;]$(Build.SourcesDirectory)\app2"
         echo $(Build.SourcesDirectory)
