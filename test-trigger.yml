@@ -10,42 +10,58 @@ resources:
 
 steps:  
 - task: PowerShell@2
+
+  displayName: Check release pipelines status
+
   inputs:
+
     targetType : inline
+
     script: |
+
       $loopCounter= 0
       $vars = @{
-        "ci-1" = 4
-        "ci-2" = 7
+        "AuthStgRelease" = 4
+        "BosStgRelease" = 7
       }
-      while ($true) {
-        if($loopCounter -ge 5) {
+
+      $keepChecking = $true
+      $waitTimeout = 2
+      while ($keepChecking) {
+        if($loopCounter -ge 15) {
           Write-Error "Retries exceeded. There were $loopCounter retries. Stop the CI."
           break
         }
         foreach ($key in $vars.Keys) {
-          $url = "https://dev.azure.com/neroz1x/DevOps%20test/_apis/build/builds?definitions=$($vars[$key])&api-version=5.1"
+          $url = "https://dev.azure.com/apleona/ApleonaEcosystem%202.0/_apis/build/builds?definitions=$($vars[$key])&api-version=7"
           $connectionToken=$env:SECRET
           $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
+ 
 
           $buildPipeline= Invoke-RestMethod -Uri $url -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
           $BuildStatus= $buildPipeline.value.status | Select-Object -first 1
           $BuildResult= $buildPipeline.value.result | Select-Object -first 1
 
-          Write-Host "status $BuildStatus"
-          Write-Host "result $BuildResult"
+          # If build is completed but not succeeded (e.g. faild, cancelled) - Stop checking and do not run pipeline
           if ($BuildStatus -eq "completed" -And $BuildResult -ne "succeeded") { # Consider adding 'partiallySucceeded' status.
+            $keepChecking = $false
             Write-Error "$key is $BuildResult. Stop this run."
-            break 2
+            break
           }
+          # If build not completed (inProgres, preparing) - delay checking for some time
           elseif ($BuildStatus -ne "completed") {
             Write-Host "$key is $BuildStatus"
+            Write-Host "Wait for the next $waitTimeout seconds to complete"
             $loopCounter = $loopCounter + 1
-            Start-Sleep -Seconds 120
-            continue 2
+            Start-Sleep -Seconds $waitTimeout
+            $keepChecking = $true
+            break
+          }
+          else{
+            Write-Host "$key is $BuildResult."
+            $keepChecking = $false
           }
         }
-        break
       }
   env:
     SECRET: $(secret)
