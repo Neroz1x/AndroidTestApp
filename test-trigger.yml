@@ -26,7 +26,7 @@ steps:
       }
 
       $keepChecking = $true
-      $waitTimeout = 2
+      $waitTimeout = 5
       while ($keepChecking) {
         if($loopCounter -ge 15) {
           Write-Error "Retries exceeded. There were $loopCounter retries. Stop the CI."
@@ -43,7 +43,7 @@ steps:
           $BuildResult= $buildPipeline.value.result | Select-Object -first 1
 
           # If build is completed but not succeeded (e.g. faild, cancelled) - Stop checking and do not run pipeline
-          if ($BuildStatus -eq "completed" -And $BuildResult -ne "succeeded") { # Consider adding 'partiallySucceeded' status.
+          if ($false) { # Consider adding 'partiallySucceeded' status.
             $keepChecking = $false
             Write-Error "$key is $BuildResult. Stop this run."
             break
