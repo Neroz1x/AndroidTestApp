@@ -27,8 +27,9 @@ steps:
 
       $keepChecking = $true
       $waitTimeout = 5
+      $maxRetries = 20
       while ($keepChecking) {
-        if($loopCounter -ge 15) {
+        if($loopCounter -ge $maxRetries) {
           Write-Error "Retries exceeded. There were $loopCounter retries. Stop the CI."
           break
         }
@@ -51,8 +52,8 @@ steps:
           # If build not completed (inProgres, preparing) - delay checking for some time
           elseif ($BuildResult -ne "succeeded"){ #$BuildStatus -ne "completed") {
             Write-Host "$key is $BuildStatus"
-            Write-Host "Wait for the next $waitTimeout seconds to complete"
             $loopCounter = $loopCounter + 1
+            Write-Host "Wait for the next $waitTimeout seconds to complete. $loopCounter of $maxRetries retries."
             Start-Sleep -Seconds $waitTimeout
             $keepChecking = $true
             break
