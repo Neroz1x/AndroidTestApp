@@ -1,7 +1,7 @@
 trigger:
   - test/*
 
-pool: selfhosted
+pool: Azure Pipelines
 
 steps:  
   - task: gitversion/setup@0
