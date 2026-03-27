@@ -1,77 +1,68 @@
-trigger: none
+trigger: 
+  - feature-*
 
-pool: selfhosted
-
-resources:
- pipelines:
-   - pipeline: my-test-p
-     source: \Folder2\gitversion-m
-     trigger: true
+pool: 'somepool'
 
 steps:  
-- task: PowerShell@2
 
-  displayName: Check release pipelines status
-
+- task: Bash@3
+  displayName: 'Get slot name'
   inputs:
-
-    targetType : inline
-
+    targetType: 'inline'
     script: |
-
-      $loopCounter= 0
-      $vars = @{
-        "AuthStgRelease" = 4
-        "BosStgRelease" = 7
-      }
-
-      $keepChecking = $true
-      $waitTimeout = 5
-      $maxRetries = 20
-      while ($keepChecking) {
-        if($loopCounter -ge $maxRetries) {
-          Write-Error "Retries exceeded. There were $loopCounter retries. Stop the CI."
-          break
-        }
-        foreach ($key in $vars.Keys) {
-          $url = "https://dev.azure.com/neroz1x/DevOps%20test/_apis/build/builds?definitions=$($vars[$key])&api-version=7"
-          $connectionToken=$env:SECRET
-          $base64AuthInfo= [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($connectionToken)"))
- 
-
-          $buildPipeline= Invoke-RestMethod -Uri $url -Headers @{authorization = "Basic $base64AuthInfo"} -Method Get
-          $BuildStatus= $buildPipeline.value.status | Select-Object -first 1
-          $BuildResult= $buildPipeline.value.result | Select-Object -first 1
-
-          # If build is completed but not succeeded (e.g. faild, cancelled) - Stop checking and do not run pipeline
-          if ($false){ #$BuildStatus -eq "completed" -And $BuildResult -ne "succeeded") { # Consider adding 'partiallySucceeded' status.
-            $keepChecking = $false
-            Write-Error "$key is $BuildResult. Stop this run."
-            break
-          }
-          # If build not completed (inProgres, preparing) - delay checking for some time
-          elseif ($BuildResult -ne "succeeded"){ #$BuildStatus -ne "completed") {
-            Write-Host "$key is $BuildStatus"
-            $loopCounter = $loopCounter + 1
-            Write-Host "Wait for the next $waitTimeout seconds to complete. $loopCounter of $maxRetries retries."
-            Start-Sleep -Seconds $waitTimeout
-            $keepChecking = $true
-            break
-          }
-          else{
-            Write-Host "$key is $BuildResult."
-            $keepChecking = $false
-          }
-        }
-      }
-  env:
-    SECRET: $(secret)
+      branchName=$(Build.SourceBranchName)
+      slotName="${branchName/feature-/f}" 
+      echo "##vso[task.setvariable variable=SlotName]$slotName"
 
 
-- task: PowerShell@2
+- task: AzureCLI@2
+  displayName: 'Check if Slot Exists'
   inputs:
-    targetType : inline
-    script: |
-      Write-Host "There were $loopCounter retries. Stop the CI."
-  env:
-    SECRET: $(secret)
+    azureSubscription: '<Your-Service-Connection. >' # TO DO Set UP Azure Resource Manager
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      # Check for slot existence
+      SLOT_EXISTS=$(az webapp deployment slot list \
+        --name "$(webAppName)" \
+        --resource-group "$(resourceGroupName)" \
+        --query "[?name=='$(SlotName)'].name" \
+        --output tsv)
+
+      if [ -z "$SLOT_EXISTS" ]; then
+        echo "Slot $(SlotName) does not exist."
+        az webapp deployment slot create \
+          --name "$(webAppName)" \
+          --resource-group "$(resourceGroupName)" \
+          --slot "$(SlotName)"
+        echo "Slot $(SlotName) has been created"
+      else
+        echo "Slot $(SlotName) exists."
+      fi
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    vstsFeed: 'c673934b-06e3-49af-91f7-ea12bf4a126c'
+
+- task: VSBuild@1
+  displayName: 'Build CallCenterWebAPI (debug.publish)'
+  inputs:
+    solution: '**\CallCenterWebAPI.sln'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\Web\\Debug\\"'
+    platform: '$(BuildPlatform)'
+    configuration: debug.publish
+
+- task: AzureCLI@2
+  displayName: 'Check if Slot Exists'
+  inputs:
+    azureSubscription: '<Your-Service-Connection. >' # TO DO Set UP Azure Resource Manager
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az webapp deploy \
+          --name "$(webAppName)" \
+          --resource-group "$(resourceGroupName)" \
+          --slot "$(SlotName)"
+          --src-path $(build.artifactstagingdirectory)\Web\Debug\CallCenterWebAPI.zip \
+          --type zip
